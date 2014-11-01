@@ -74,15 +74,7 @@ var Pie = React.createClass({
       .style("text-anchor", "end")
       .text(props.ylabel);
 
-    //d3.select('.line-graph').selectAll(".bar")
-    //  .data(props.data)
-    //  .enter().append("rect")
-    //  .attr("class", "bar")
-    //  .attr("x", function(d) { return _this.x(d.text); })
-    //  .attr("width", this.x.rangeBand())
-    //  .attr("y", function(d) { return _this.y(d.value); })
-    //    .attr("height", function(d) { return height - _this.y(d.value); });
-    d3.select('path').remove();
+    svg.select('path').remove();
     d3.select('.line-graph').append("path")
       .attr('class', 'data-line')
       .attr("d", line(this.props.data));
@@ -99,10 +91,11 @@ var Pie = React.createClass({
         .attr('cx', function(d) { return _this.x(d.date) })
         .attr('cy', function(d) { return _this.y(d.value) });
 
-    d3.select('labels').remove();
+    d3.select('.labels').remove();
     var labels = d3.select('.line-graph').append('svg:g')
       .attr('class', 'labels');
-    var texts = labels.selectAll('texts').data(this.props.data);
+    
+    var texts = labels.selectAll('text').data(this.props.data);
 
     texts
       .enter()
