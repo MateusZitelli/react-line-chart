@@ -87,7 +87,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	      .attr("width", width + margin.left + margin.right)
 	      .attr("height", height + margin.top + margin.bottom);
 	
-	    svg = svg.select(".graph")
+	    svg = svg.select(".line-graph")
 	      .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 	
 	    this._reusableGraph(props);
@@ -102,7 +102,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    var svg = d3.select(this.getDOMNode())
 	      .attr("width", width + margin.left + margin.right)
 	      .attr("height", height + margin.top + margin.bottom);
-	    svg = svg.select(".graph")
+	    svg = svg.select(".line-graph")
 	      .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 	
 	    var line = d3.svg.line()
@@ -133,7 +133,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	      .style("text-anchor", "end")
 	      .text(props.ylabel);
 	
-	    //d3.select('.graph').selectAll(".bar")
+	    //d3.select('.line-graph').selectAll(".bar")
 	    //  .data(props.data)
 	    //  .enter().append("rect")
 	    //  .attr("class", "bar")
@@ -142,10 +142,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	    //  .attr("y", function(d) { return _this.y(d.value); })
 	    //    .attr("height", function(d) { return height - _this.y(d.value); });
 	    d3.select('path').remove();
-	    d3.select('.graph').append("path")
+	    d3.select('.line-graph').append("path")
 	      .attr('class', 'data-line')
 	      .style('opacity', 0.3)
-	      .attr("d", line(data));
+	      .attr("d", line(this.props.data));
 	  },
 	
 	  componentDidMount:function () {
@@ -190,7 +190,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	  render:function() {
 	    return (
-	      React.DOM.svg(null, React.DOM.g({className: "graph"}))
+	      React.DOM.svg(null, React.DOM.g({className: "line-graph"}))
 	    );
 	  }
 	

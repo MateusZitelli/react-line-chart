@@ -28,7 +28,7 @@ var Pie = React.createClass({
       .attr("width", width + margin.left + margin.right)
       .attr("height", height + margin.top + margin.bottom);
 
-    svg = svg.select(".graph")
+    svg = svg.select(".line-graph")
       .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
     this._reusableGraph(props);
@@ -43,7 +43,7 @@ var Pie = React.createClass({
     var svg = d3.select(this.getDOMNode())
       .attr("width", width + margin.left + margin.right)
       .attr("height", height + margin.top + margin.bottom);
-    svg = svg.select(".graph")
+    svg = svg.select(".line-graph")
       .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
     var line = d3.svg.line()
@@ -74,7 +74,7 @@ var Pie = React.createClass({
       .style("text-anchor", "end")
       .text(props.ylabel);
 
-    //d3.select('.graph').selectAll(".bar")
+    //d3.select('.line-graph').selectAll(".bar")
     //  .data(props.data)
     //  .enter().append("rect")
     //  .attr("class", "bar")
@@ -83,10 +83,10 @@ var Pie = React.createClass({
     //  .attr("y", function(d) { return _this.y(d.value); })
     //    .attr("height", function(d) { return height - _this.y(d.value); });
     d3.select('path').remove();
-    d3.select('.graph').append("path")
+    d3.select('.line-graph').append("path")
       .attr('class', 'data-line')
       .style('opacity', 0.3)
-      .attr("d", line(data));
+      .attr("d", line(this.props.data));
   },
 
   componentDidMount () {
@@ -131,7 +131,7 @@ var Pie = React.createClass({
 
   render() {
     return (
-      <svg><g className="graph"></g></svg>
+      <svg><g className="line-graph"></g></svg>
     );
   }
 
