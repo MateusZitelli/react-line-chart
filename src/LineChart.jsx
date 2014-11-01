@@ -85,8 +85,32 @@ var Pie = React.createClass({
     d3.select('path').remove();
     d3.select('.line-graph').append("path")
       .attr('class', 'data-line')
-      .style('opacity', 0.3)
       .attr("d", line(this.props.data));
+
+    d3.select('.data-point').remove();
+    var dataCirclesGroup = svg.append('svg:g').attr('class', 'data-point');
+    var circles = dataCirclesGroup.selectAll('.data-point')
+        .data(this.props.data);
+  
+    circles
+      .enter()
+      .append('svg:circle')
+        .attr('r', 5)
+        .attr('cx', function(d) { return _this.x(d.date) })
+        .attr('cy', function(d) { return _this.y(d.value) });
+
+    d3.select('labels').remove();
+    var labels = d3.select('.line-graph').append('svg:g')
+      .attr('class', 'labels');
+    var texts = labels.selectAll('texts').data(this.props.data);
+
+    texts
+      .enter()
+      .append('text')
+        .attr('x', function(d) { return _this.x(d.date) + 4; })
+        .attr('y', function(d) { return _this.y(d.value) + 14; })
+        .attr('class', 'label')
+        .text(function(d) { return d.value; }); 
   },
 
   componentDidMount () {

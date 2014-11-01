@@ -144,8 +144,32 @@ return /******/ (function(modules) { // webpackBootstrap
 	    d3.select('path').remove();
 	    d3.select('.line-graph').append("path")
 	      .attr('class', 'data-line')
-	      .style('opacity', 0.3)
 	      .attr("d", line(this.props.data));
+	
+	    d3.select('.data-point').remove();
+	    var dataCirclesGroup = svg.append('svg:g').attr('class', 'data-point');
+	    var circles = dataCirclesGroup.selectAll('.data-point')
+	        .data(this.props.data);
+	  
+	    circles
+	      .enter()
+	      .append('svg:circle')
+	        .attr('r', 5)
+	        .attr('cx', function(d) { return _this.x(d.date) })
+	        .attr('cy', function(d) { return _this.y(d.value) });
+	
+	    d3.select('labels').remove();
+	    var labels = d3.select('.line-graph').append('svg:g')
+	      .attr('class', 'labels');
+	    var texts = labels.selectAll('texts').data(this.props.data);
+	
+	    texts
+	      .enter()
+	      .append('text')
+	        .attr('x', function(d) { return _this.x(d.date) + 4; })
+	        .attr('y', function(d) { return _this.y(d.value) + 14; })
+	        .attr('class', 'label')
+	        .text(function(d) { return d.value; }); 
 	  },
 	
 	  componentDidMount:function () {
@@ -302,7 +326,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(/*! ./~/css-loader/cssToString.js */ 7)();
-	exports.push([module.id, ".bar {\n  fill: steelblue;\n}\n\n.bar:hover {\n  fill: brown;\n}\n\n.axis {\n  font: 10px sans-serif;\n}\n\n.axis path,\n.axis line {\n  fill: none;\n  stroke: #000;\n  shape-rendering: crispEdges;\n}\n\n.x.axis path {\n  display: none;\n}\n.data-line {\n  stroke: steelblue;\n  stroke-width: 2;\n  fill: none;\n  stroke-dasharray: 0;\n}\n\npath {\n  stroke: #eee;\n  stroke-width: 2;\n  stroke-dasharray: 0;\n  fill: none;\n}\n\n.area {\n    fill: lightsteelblue;\n}\n\ntext {\n  font-family: Arial;\n  font-size: 8pt;\n  fill: #787878;\n}\n\nline {\n  stroke: #CDCDCD;\n  stroke-width: 0.5;\n  /* stroke-dasharray: 3 3; */\n  fill: none;\n}\n\n.data-point {\n  stroke: steelblue;\n  stroke-width: 2;\n  fill: #FFF;\n}\n\n#chart {\n        margin: 0;\n}\n\n", ""]);
+	exports.push([module.id, ".bar {\n  fill: steelblue;\n}\n\n.bar:hover {\n  fill: brown;\n}\n\n.axis {\n  font: 10px sans-serif;\n}\n\n.axis path,\n.axis line {\n  fill: none;\n  stroke: #000;\n  shape-rendering: crispEdges;\n}\n\n.x.axis path {\n  display: none;\n}\n.data-line {\n  stroke: steelblue;\n  stroke-width: 2;\n  fill: none;\n  stroke-dasharray: 0;\n}\n\npath {\n  stroke: #eee;\n  stroke-width: 2;\n  stroke-dasharray: 0;\n  fill: none;\n}\n\n.area {\n    fill: lightsteelblue;\n}\n\ntext {\n  font-family: Arial;\n  font-size: 8pt;\n  fill: #787878;\n}\n\nline {\n  stroke: #CDCDCD;\n  stroke-width: 0.5;\n  /* stroke-dasharray: 3 3; */\n  fill: none;\n}\n\n.data-point {\n  stroke: steelblue;\n  stroke-width: 2;\n  fill: #FFF;\n}\n\n#chart {\n        margin: 0;\n}\n\n.label{\n  font-size: 14px;\n}\n", ""]);
 
 /***/ },
 /* 6 */
